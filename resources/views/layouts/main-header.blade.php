@@ -38,8 +38,14 @@
                 <li class="nav-item dropdown ">
                     <a class="nav-link top-nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                         aria-expanded="false">
-                        <i class="ti-flag"></i>
-                        
+                        @if (App::getLocale() == 'ar')
+                            <span style="color: #757e85;">{{ LaravelLocalization::getCurrentLocaleName() }}</span>
+                            <img src="{{ URL::asset('assets/images/flags/EG.png') }}" alt="">
+                        @else
+                            <span style="color: #757e85;">{{ LaravelLocalization::getCurrentLocaleName() }}</span>
+                            <img src="{{ URL::asset('assets/images/flags/US.png') }}" alt="">
+                        @endif
+
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-big dropdown-notifications">
                         <div class="dropdown-header notifications">
@@ -47,11 +53,11 @@
                             <span class="badge badge-pill badge-warning"></span>
                         </div>
                         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                           
+
                                 <a rel="alternate" class="dropdown-item <?php if(App::getLocale() == $localeCode){echo " active";}else{echo "";} ?>" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                     {{ $properties['native'] }}
                                 </a>
-                            
+
                         @endforeach
                     </div>
                 </li>

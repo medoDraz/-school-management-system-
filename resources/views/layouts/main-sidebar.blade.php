@@ -7,7 +7,7 @@
                     <!-- menu item Dashboard-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard">
-                            <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">Dashboard</span>
+                            <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">@lang('site.dashboard')</span>
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -26,13 +26,13 @@
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
                             <div class="pull-left"><i class="ti-palette"></i><span
-                                    class="right-nav-text">Elements</span></div>
+                                    class="right-nav-text">@lang('site.grades')</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="elements" class="collapse" data-parent="#sidebarnav">
-                            <li><a href="accordions.html">Accordions</a></li>
-                            <li><a href="alerts.html">Alerts</a></li>
+                            <li><a href="{{route('grade.index')}}">@lang('site.grades_list')</a></li>
+                            <!-- <li><a href="alerts.html">Alerts</a></li>
                             <li><a href="button.html">Button</a></li>
                             <li><a href="colorpicker.html">Colorpicker</a></li>
                             <li><a href="dropdown.html">Dropdown</a></li>
@@ -49,7 +49,7 @@
                             <li><a href="progress.html">progress</a></li>
                             <li><a href="switch.html">switch</a></li>
                             <li><a href="sweetalert2.html">sweetalert2</a></li>
-                            <li><a href="touchspin.html">touchspin</a></li>
+                            <li><a href="touchspin.html">touchspin</a></li> -->
                         </ul>
                     </li>
                     <!-- menu item calendar-->

@@ -12,15 +12,25 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+
+Route::group(['middleware' => [ 'guest' ]], function(){ 
+		Route::get('/', function () {
+			return view('auth.login');
+		});
+	});
 
 Route::group(
 [
 	'prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ]
 ], function(){ 
-	Route::get('/', function () {
+
+	Route::get('/dashboard', function () {
 	    return view('dashboard');
 	});
+	
+	Route::resource('grade', 'GradeController');
 });
 
 
@@ -28,6 +38,12 @@ Route::group(
 //     return view('dashboard');
 // });
 
+
+
 Route::get('/empty', function () {
     return view('empty');
 });
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');
