@@ -2,13 +2,13 @@
 @section('css')
     @toastr_css
 @section('title')
-    {{ trans('site.Grades_trans.title_page') }}
+    @lang('site.Grades_trans.title_page')
 @stop
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
 @section('PageTitle')
-    {{trans('main_trans.Grades')}}
+    @lang('main_trans.Grades')
 @stop
 <!-- breadcrumb -->
 @endsection
@@ -31,7 +31,7 @@
                     @endif
 
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                        {{ trans('site.Grades_trans.add_Grade') }}
+                        @lang('site.Grades_trans.add_Grade')
                     </button>
                     <br><br>
 
@@ -42,25 +42,25 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{trans('site.Grades_trans.Name')}}</th>
-                                <th>{{trans('site.Grades_trans.Notes')}}</th>
-                                <th>{{trans('site.Grades_trans.Processes')}}</th>
+                                <th>@lang('site.Grades_trans.Name')</th>
+                                <th>@lang('site.Grades_trans.Notes')</th>
+                                <th>@lang('site.Grades_trans.Processes')</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($Grades as $index=>$Grade)
                                 <tr>
                                     <td>{{ $index + 1  }}</td>
-                                    <td>{{ $Grade->Name }}</td>
-                                    <td>{{ $Grade->Notes }}</td>
+                                    <td>{{ $Grade->name }}</td>
+                                    <td>{{ $Grade->notes }}</td>
                                     <td>
                                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                                 data-target="#edit{{ $Grade->id }}"
-                                                title="{{ trans('site.Grades_trans.Edit') }}"><i
+                                                title="@lang('site.Grades_trans.Edit')"><i
                                                 class="fa fa-edit"></i></button>
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                                 data-target="#delete{{ $Grade->id }}"
-                                                title="{{ trans('site.Grades_trans.Delete') }}"><i
+                                                title="@lang('site.Grades_trans.Delete') "><i
                                                 class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -73,7 +73,7 @@
                                             <div class="modal-header">
                                                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                                     id="exampleModalLabel">
-                                                    {{ trans('site.Grades_trans.edit_Grade') }}
+                                                    @lang('site.Grades_trans.edit_Grade')
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
@@ -82,17 +82,17 @@
                                             </div>
                                             <div class="modal-body">
                                                 <!-- add_form -->
-                                                <form action="{{route('Grades.update','test')}}" method="post">
+                                                <form action="{{route('grade.update','test')}}" method="post">
                                                     {{method_field('patch')}}
                                                     @csrf
                                                     <div class="row">
                                                         <div class="col">
                                                             <label for="Name"
-                                                                   class="mr-sm-2">{{ trans('site.Grades_trans.stage_name_ar') }}
+                                                                   class="mr-sm-2">@lang('site.Grades_trans.stage_name_ar')
                                                                 :</label>
                                                             <input id="Name" type="text" name="Name"
                                                                    class="form-control"
-                                                                   value="{{$Grade->getTranslation('Name', 'ar')}}"
+                                                                   value="{{$Grade->getTranslation('name', 'ar')}}"
                                                                    required>
                                                             <input id="id" type="hidden" name="id" class="form-control"
                                                                    value="{{ $Grade->id }}">
@@ -102,7 +102,7 @@
                                                                    class="mr-sm-2"> @lang('site.Grades_trans.stage_name_en')
                                                                 :</label>
                                                             <input type="text" class="form-control"
-                                                                   value="{{$Grade->getTranslation('Name', 'en')}}"
+                                                                   value="{{$Grade->getTranslation('name', 'en')}}"
                                                                    name="Name_en" required>
                                                         </div>
                                                     </div>
@@ -112,15 +112,15 @@
                                                             :</label>
                                                         <textarea class="form-control" name="Notes"
                                                                   id="exampleFormControlTextarea1"
-                                                                  rows="3">{{ $Grade->Notes }}</textarea>
+                                                                  rows="3">{{ $Grade->notes }}</textarea>
                                                     </div>
                                                     <br><br>
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">{{ trans('site.Grades_trans.Close') }}</button>
+                                                                data-dismiss="modal">@lang('site.Grades_trans.Close') </button>
                                                         <button type="submit"
-                                                                class="btn btn-success">{{ trans('site.Grades_trans.submit') }}</button>
+                                                                class="btn btn-success">@lang('site.Grades_trans.submit') </button>
                                                     </div>
                                                 </form>
 
@@ -137,7 +137,7 @@
                                             <div class="modal-header">
                                                 <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                                     id="exampleModalLabel">
-                                                    {{ trans('site.Grades_trans.delete_Grade') }}
+                                                    @lang('site.Grades_trans.delete_Grade')
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
@@ -148,14 +148,14 @@
                                                 <form action="{{route('grade.destroy','test')}}" method="post">
                                                     {{method_field('Delete')}}
                                                     @csrf
-                                                    {{ trans('site.Grades_trans.Warning_Grade') }}
+                                                    @lang('site.Grades_trans.Warning_Grade')
                                                     <input id="id" type="hidden" name="id" class="form-control"
                                                            value="{{ $Grade->id }}">
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">{{ trans('site.Grades_trans.Close') }}</button>
+                                                                data-dismiss="modal">@lang('site.Grades_trans.Close') </button>
                                                         <button type="submit"
-                                                                class="btn btn-danger">{{ trans('site.Grades_trans.submit') }}</button>
+                                                                class="btn btn-danger">@lang('site.Grades_trans.submit') </button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -180,7 +180,7 @@
                     <div class="modal-header">
                         <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                             id="exampleModalLabel">
-                            {{ trans('site.Grades_trans.add_Grade') }}
+                            @lang('site.Grades_trans.add_Grade')
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -193,34 +193,34 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="Name"
-                                           class="mr-sm-2">{{ trans('site.Grades_trans.stage_name_ar') }}
+                                           class="mr-sm-2">@lang('site.Grades_trans.stage_name_ar')
                                         :</label>
-                                    <input id="Name" type="text" name="Name" class="form-control">
+                                    <input id="Name" type="text" name="name_ar" class="form-control" required>
                                 </div>
                                 <div class="col">
                                     <label for="Name_en"
-                                           class="mr-sm-2">{{ trans('site.Grades_trans.stage_name_en') }}
+                                           class="mr-sm-2">@lang('site.Grades_trans.stage_name_en')
                                         :</label>
-                                    <input type="text" class="form-control" name="Name_en" required>
+                                    <input type="text" class="form-control" name="name_en" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label
-                                    for="exampleFormControlTextarea1">{{ trans('site.Grades_trans.Notes') }}
+                                    for="exampleFormControlTextarea1">@lang('site.Grades_trans.Notes')
                                     :</label>
-                                <textarea class="form-control" name="Notes" id="exampleFormControlTextarea1"
+                                <textarea class="form-control" name="notes" id="exampleFormControlTextarea1"
                                           rows="3"></textarea>
                             </div>
                             <br><br>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">{{ trans('site.Grades_trans.Close') }}</button>
-                        <button type="submit"
-                                class="btn btn-success">{{ trans('site.Grades_trans.submit') }}</button>
-                    </div>
-                    </form>
 
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">@lang('site.Grades_trans.Close') </button>
+                                <button type="submit"
+                                        class="btn btn-success">@lang('site.Grades_trans.submit') </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
