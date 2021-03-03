@@ -13,7 +13,7 @@
 
 <body>
 
-    <div class="wrapper">
+    <div class="wrapper" style="font-family: 'Cairo', sans-serif">
 
         <!--=================================
  preloader -->
@@ -32,7 +32,7 @@
         <!--=================================
  Main content -->
         <!-- main-content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="width: auto;">
 
             @yield('page-header')
 

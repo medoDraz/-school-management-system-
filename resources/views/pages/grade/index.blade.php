@@ -90,7 +90,7 @@
                                                             <label for="Name"
                                                                    class="mr-sm-2">@lang('site.Grades_trans.stage_name_ar')
                                                                 :</label>
-                                                            <input id="Name" type="text" name="Name"
+                                                            <input id="Name" type="text" name="name_ar"
                                                                    class="form-control"
                                                                    value="{{$Grade->getTranslation('name', 'ar')}}"
                                                                    required>
@@ -103,14 +103,14 @@
                                                                 :</label>
                                                             <input type="text" class="form-control"
                                                                    value="{{$Grade->getTranslation('name', 'en')}}"
-                                                                   name="Name_en" required>
+                                                                   name="name_en" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label
                                                             for="exampleFormControlTextarea1">{{ trans('site.Grades_trans.Notes') }}
                                                             :</label>
-                                                        <textarea class="form-control" name="Notes"
+                                                        <textarea class="form-control" name="notes"
                                                                   id="exampleFormControlTextarea1"
                                                                   rows="3">{{ $Grade->notes }}</textarea>
                                                     </div>

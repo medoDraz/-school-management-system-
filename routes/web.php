@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::group(['middleware' => [ 'guest' ]], function(){ 
+Route::group(['middleware' => [ 'guest' ]], function(){
 		Route::get('/', function () {
 			return view('auth.login');
 		});
@@ -24,13 +24,14 @@ Route::group(
 [
 	'prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ]
-], function(){ 
+], function(){
 
 	Route::get('/dashboard', function () {
 	    return view('dashboard');
 	});
-	
+
 	Route::resource('grade', 'GradeController');
+	Route::resource('classrooms', 'ClassroomController');
 });
 
 

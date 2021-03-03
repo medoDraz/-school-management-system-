@@ -2,11 +2,11 @@
     <div class="row">
         <!-- Left Sidebar start-->
         <div class="side-menu-fixed">
-            <div class="scrollbar side-menu-bg">
+            <div class="scrollbar side-menu-bg" style="overflow: scroll">
                 <ul class="nav navbar-nav side-menu" id="sidebarnav">
                     <!-- menu item Dashboard-->
                     <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard">
+                        <a href="{{ url('/dashboard') }}">
                             <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">@lang('site.dashboard')</span>
                             </div>
 
@@ -37,8 +37,7 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="classes-menu" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="calendar.html">Events Calendar </a> </li>
-                            <li> <a href="calendar-list.html">List Calendar</a> </li>
+                            <li> <a href="{{route('classrooms.index')}}"> {{trans('site.list_classes')}} </a> </li>
                         </ul>
                     </li>
 
