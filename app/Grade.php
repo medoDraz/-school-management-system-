@@ -18,4 +18,10 @@ class Grade extends Model
     public $translatable = ['name'];
     protected $dates = ['deleted_at'];
 
+    public function Sections()
+    {
+        return $this->hasMany('App\Section', 'Grade_id');
+    }
+
+
 }

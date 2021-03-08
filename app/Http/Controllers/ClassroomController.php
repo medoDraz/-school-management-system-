@@ -88,12 +88,22 @@ class ClassroomController extends Controller
     {
         try {
             Classroom::findOrFail($request->id)->delete();
-            toastr()->success(trans('site.messages.Delete'));
+            toastr()->error(trans('site.messages.Delete'));
             return redirect()->route('classrooms.index');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
 
+    }
+
+    public function delete_all(Request $request)
+    {
+//        dd($request);
+        $delete_all_id = explode(",", $request->delete_all_id);
+
+        Classroom::whereIn('id', $delete_all_id)->Delete();
+        toastr()->error(trans('messages.Delete'));
+        return redirect()->route('classrooms.index');
     }
 
 }

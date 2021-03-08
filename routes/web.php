@@ -31,7 +31,12 @@ Route::group(
 	});
 
 	Route::resource('grade', 'GradeController');
+
 	Route::resource('classrooms', 'ClassroomController');
+	Route::post('delete_all', 'ClassroomController@delete_all')->name('delete_all');
+
+    Route::resource('sections', 'SectionController');
+    Route::get('/classes/{id}', 'SectionController@getclasses');
 });
 
 
