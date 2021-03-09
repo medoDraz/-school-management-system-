@@ -29,6 +29,9 @@ Route::group(
 	Route::get('/dashboard', function () {
 	    return view('dashboard');
 	});
+    Route::get('/tab', function () {
+        return view('empty');
+    });
 
 	Route::resource('grade', 'GradeController');
 

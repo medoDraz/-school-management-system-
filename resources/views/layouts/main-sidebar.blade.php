@@ -45,7 +45,7 @@
                     <!-- sections-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#sections-menu">
-                            <div class="pull-left"><i class="fa fa-chalkboard"></i><span
+                            <div class="pull-left"><i class="fas fa-chalkboard"></i><span
                                     class="right-nav-text">{{trans('site.sections')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -59,7 +59,7 @@
                     <!-- students-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#students-menu">
-                            <div class="pull-left"><i class="fa fa-user-graduate"></i><span
+                            <div class="pull-left"><i class="fas fa-user-graduate"></i><span
                                     class="right-nav-text">{{trans('site.students')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -75,7 +75,7 @@
                     <!-- Teachers-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#Teachers-menu">
-                            <div class="pull-left"><i class="fa fa-chalkboard-teacher"></i><span
+                            <div class="pull-left"><i class="fas fa-chalkboard-teacher"></i><span
                                     class="right-nav-text">{{trans('site.Teachers')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -90,7 +90,7 @@
                     <!-- Parents-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#Parents-menu">
-                            <div class="pull-left"><i class="fa fa-user-tie"></i><span
+                            <div class="pull-left"><i class="fas fa-user-tie"></i><span
                                     class="right-nav-text">{{trans('site.Parents')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -104,7 +104,7 @@
                     <!-- Accounts-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#Accounts-menu">
-                            <div class="pull-left"><i class="fa fa-money-bill-wave-alt"></i><span
+                            <div class="pull-left"><i class="fas fa-calculator"></i></i><span
                                     class="right-nav-text">{{trans('site.Accounts')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
@@ -118,7 +118,7 @@
                     <!-- Attendance-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#Attendance-icon">
-                            <div class="pull-left"><i class="fa fa-calendar-alt"></i><span class="right-nav-text">{{trans('site.Attendance')}}</span></div>
+                            <div class="pull-left"><i class="fas fa-calendar-alt"></i><span class="right-nav-text">{{trans('site.Attendance')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
@@ -132,7 +132,7 @@
                     <!-- Exams-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#Exams-icon">
-                            <div class="pull-left"><i class="fa fa-book-open"></i><span class="right-nav-text">{{trans('site.Exams')}}</span></div>
+                            <div class="pull-left"><i class="fas fa-book-open"></i><span class="right-nav-text">{{trans('site.Exams')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
@@ -147,7 +147,7 @@
                     <!-- library-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#library-icon">
-                            <div class="pull-left"><i class="fa fa-book"></i><span class="right-nav-text">{{trans('site.library')}}</span></div>
+                            <div class="pull-left"><i class="fas fa-book"></i><span class="right-nav-text">{{trans('site.library')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>

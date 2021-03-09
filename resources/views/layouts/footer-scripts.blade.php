@@ -24,6 +24,15 @@
 <script src="{{ URL::asset('assets/js/validation.js') }}"></script>
 <!-- lobilist -->
 <script src="{{ URL::asset('assets/js/lobilist.js') }}"></script>
+{{--<script>--}}
+{{--    $(document).on('click', '#button-toggle', function (e) {--}}
+{{--        // $(".dropdown.open > .dropdown-toggle").dropdown("toggle");--}}
+{{--        // return false;--}}
+{{--        $('.brand-logo').hide()--}}
+{{--        $('.brand-logo-mini').show()--}}
+{{--        console.log('sfhsdjfhssfh');--}}
+{{--    });--}}
+{{--</script>--}}
 <!-- custom -->
 <script src="{{ URL::asset('assets/js/custom.js') }}"></script>
 
@@ -42,3 +51,5 @@
         }
     }
 </script>
+
+

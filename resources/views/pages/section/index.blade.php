@@ -37,12 +37,13 @@
 
                 <div class="card card-statistics h-100">
                     <div class="card-body">
-                        <div class="accordion gray plus-icon round">
+                        <div class="accordion accordion-border">
 
                             @foreach ($Grades as $Grade)
 
                                 <div class="acd-group">
-                                    <a href="#" class="acd-heading">{{ $Grade->Name }}</a>
+                                    <a href="#" class="acd-heading">{{ $Grade->name }} <span
+                                            class="badge badge-pill badge-warning">{{$Grade->Sections->count()}}</span></a>
                                     <div class="acd-des">
 
                                         <div class="row">
@@ -72,7 +73,7 @@
                                                                         <?php $i++; ?>
                                                                         <td>{{ $i }}</td>
                                                                         <td>{{ $list_Sections->Name_Section }}</td>
-                                                                        <td>{{ $list_Sections->My_classs->Name_Class }}
+                                                                        <td>{{ $list_Sections->My_classs->name_class }}
                                                                         </td>
                                                                         <td>
                                                                             @if ($list_Sections->Status === 1)
@@ -89,7 +90,8 @@
                                                                             <a href="#"
                                                                                class="btn btn-outline-info btn-sm"
                                                                                data-toggle="modal"
-                                                                               data-target="#edit{{ $list_Sections->id }}">{{ trans('site.Sections_trans.Edit') }}</a>
+                                                                               data-target="#edit{{ $list_Sections->id }}"
+                                                                               onclick="getclass({{$Grade->id}})">{{ trans('site.Sections_trans.Edit') }}</a>
                                                                             <a href="#"
                                                                                class="btn btn-outline-danger btn-sm"
                                                                                data-toggle="modal"
@@ -120,7 +122,7 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <form
-                                                                                    action="{{ route('Sections.update', 'test') }}"
+                                                                                    action="{{ route('sections.update', 'test') }}"
                                                                                     method="POST">
                                                                                     {{ method_field('patch') }}
                                                                                     {{ csrf_field() }}
@@ -155,16 +157,17 @@
                                                                                                    class="control-label">{{ trans('site.Sections_trans.Name_Grade') }}</label>
                                                                                             <select name="Grade_id"
                                                                                                     class="custom-select"
+                                                                                                    onchange="console.log($(this).val())"
                                                                                                     onclick="console.log($(this).val())">
                                                                                                 <!--placeholder-->
-                                                                                                <option
-                                                                                                    value="{{ $Grade->id }}">
-                                                                                                    {{ $Grade->Name }}
-                                                                                                </option>
+{{--                                                                                                <option--}}
+{{--                                                                                                    value="{{ $Grade->id }}">--}}
+{{--                                                                                                    {{ $Grade->name }}--}}
+{{--                                                                                                </option>--}}
                                                                                                 @foreach ($list_Grades as $list_Grade)
                                                                                                     <option
                                                                                                         value="{{ $list_Grade->id }}">
-                                                                                                        {{ $list_Grade->Name }}
+                                                                                                        {{ $list_Grade->name }}
                                                                                                     </option>
                                                                                                 @endforeach
                                                                                             </select>
@@ -178,7 +181,7 @@
                                                                                                     class="custom-select">
                                                                                                 <option
                                                                                                     value="{{ $list_Sections->My_classs->id }}">
-                                                                                                    {{ $list_Sections->My_classs->Name_Class }}
+                                                                                                    {{ $list_Sections->My_classs->name_class }}
                                                                                                 </option>
                                                                                             </select>
                                                                                         </div>
@@ -245,7 +248,7 @@
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <form
-                                                                                        action="{{ route('Sections.destroy', 'test') }}"
+                                                                                        action="{{ route('sections.destroy', 'test') }}"
                                                                                         method="post">
                                                                                         {{ method_field('Delete') }}
                                                                                         @csrf
@@ -277,8 +280,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endforeach
+
                                 </div>
+                            @endforeach
                         </div>
                     </div>
 
@@ -296,7 +300,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="{{ route('Sections.store') }}" method="POST">
+                                <form action="{{ route('sections.store') }}" method="POST">
                                     {{ csrf_field() }}
                                     <div class="modal-body">
                                         <div class="row">
@@ -323,7 +327,7 @@
                                                         disabled>{{ trans('site.Sections_trans.Select_Grade') }}
                                                 </option>
                                                 @foreach ($list_Grades as $list_Grade)
-                                                    <option value="{{ $list_Grade->id }}"> {{ $list_Grade->Name }}
+                                                    <option value="{{ $list_Grade->id }}"> {{ $list_Grade->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -352,32 +356,55 @@
                 </div>
             </div>
         </div>
-        <!-- row closed -->
-        @endsection
-        @section('js')
-            @toastr_js
-            @toastr_render
-            <script>
-                $(document).ready(function () {
-                    $('select[name="Grade_id"]').on('change', function () {
-                        var Grade_id = $(this).val();
-                        if (Grade_id) {
-                            $.ajax({
-                                url: "{{ URL::to('classes') }}/" + Grade_id,
-                                type: "GET",
-                                dataType: "json",
-                                success: function (data) {
-                                    $('select[name="Class_id"]').empty();
-                                    $.each(data, function (key, value) {
-                                        $('select[name="Class_id"]').append('<option value="' + key + '">' + value + '</option>');
-                                    });
-                                },
+    </div>
+    <!-- row closed -->
+@endsection
+@section('js')
+    @toastr_js
+    @toastr_render
+    <script>
+        $(document).ready(function () {
+            $('select[name="Grade_id"]').on('change', function () {
+                var Grade_id = $(this).val();
+                if (Grade_id) {
+                    $.ajax({
+                        url: "{{ URL::to('classes') }}/" + Grade_id,
+                        type: "GET",
+                        dataType: "json",
+                        success: function (data) {
+                            $('select[name="Class_id"]').empty();
+                            $.each(data, function (key, value) {
+                                $('select[name="Class_id"]').append('<option value="' + key + '">' + value + '</option>');
                             });
-                        } else {
-                            console.log('AJAX load did not work');
-                        }
+                        },
                     });
+                } else {
+                    console.log('AJAX load did not work');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function getclass(e) {
+            console.log(e)
+            var Grade_id = e;
+            if (Grade_id) {
+                $.ajax({
+                    url: "{{ URL::to('classes') }}/" + Grade_id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('select[name="Class_id"]').empty();
+                        $.each(data, function (key, value) {
+                            $('select[name="Class_id"]').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    },
                 });
-            </script>
+            } else {
+                console.log('AJAX load did not work');
+            }
+        }
+    </script>
 
 @endsection
