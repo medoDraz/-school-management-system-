@@ -40,6 +40,8 @@ Route::group(
 
     Route::resource('sections', 'SectionController');
     Route::get('/classes/{id}', 'SectionController@getclasses');
+
+    Route::view('add_parent','livewire.show-form');
 });
 
 

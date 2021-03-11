@@ -12,7 +12,7 @@ class CreateGradesTable extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 			$table->string('name');
-			$table->longText('notes');
+			$table->longText('notes')->nullable();
 		});
 	}
 
