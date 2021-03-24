@@ -2,17 +2,20 @@
 
 namespace App;
 
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 class Classroom extends Model
 {
-    use HasTranslations;
-    public $translatable = ['name_class'];
+    use Translatable;
+
+    public $translatedAttributes = ['name'];
+    protected $guarded=[];
 
     protected $table = 'classrooms';
     public $timestamps = true;
-    protected $fillable=['name_class','grade_id'];
+//    protected $fillable=['grade_id'];
 
     public function grade()
     {

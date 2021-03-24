@@ -59,7 +59,7 @@
                                     <?php $i++; ?>
                                     <td><input type="checkbox" value="{{ $My_Class->id }}" class="box1"></td>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $My_Class->name_class }}</td>
+                                    <td>{{ $My_Class->name }}</td>
                                     <td>{{ $My_Class->grade->name }}</td>
                                     <td>
                                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
@@ -94,25 +94,27 @@
                                                     {{ method_field('patch') }}
                                                     @csrf
                                                     <div class="row">
-                                                        <div class="col">
-                                                            <label for="Name"
-                                                                   class="mr-sm-2">{{ trans('site.Classes_trans.Name_class') }}
-                                                                :</label>
-                                                            <input id="Name" type="text" name="name_ar"
-                                                                   class="form-control"
-                                                                   value="{{ $My_Class->getTranslation('name_class', 'ar') }}"
-                                                                   required>
-                                                            <input id="id" type="hidden" name="id" class="form-control"
-                                                                   value="{{ $My_Class->id }}">
-                                                        </div>
-                                                        <div class="col">
-                                                            <label for="Name_en"
-                                                                   class="mr-sm-2">{{ trans('site.Classes_trans.Name_class_en') }}
-                                                                :</label>
-                                                            <input type="text" class="form-control"
-                                                                   value="{{ $My_Class->getTranslation('name_class', 'en') }}"
-                                                                   name="name_en" required>
-                                                        </div>
+                                                        @foreach (config('translatable.locales') as $locale)
+                                                            <div class="col">
+                                                                <label for="Name"
+                                                                       class="mr-sm-2">@lang('site.' . $locale . '.name')
+                                                                    :</label>
+                                                                <input id="Name" type="text" name="{{ $locale }}[name]"
+                                                                       class="form-control"
+                                                                       value="{{ $My_Class->translate($locale)->name }}"
+                                                                       required>
+                                                            </div>
+                                                        @endforeach
+                                                        <input id="id" type="hidden" name="id" class="form-control"
+                                                               value="{{ $My_Class->id }}">
+                                                        {{--                                                        <div class="col">--}}
+                                                        {{--                                                            <label for="Name_en"--}}
+                                                        {{--                                                                   class="mr-sm-2">{{ trans('site.Classes_trans.Name_class_en') }}--}}
+                                                        {{--                                                                :</label>--}}
+                                                        {{--                                                            <input type="text" class="form-control"--}}
+                                                        {{--                                                                   value="{{ $My_Class->getTranslation('name_class', 'en') }}"--}}
+                                                        {{--                                                                   name="name_en" required>--}}
+                                                        {{--                                                        </div>--}}
                                                     </div>
                                                     <br>
                                                     <div class="form-group">
@@ -210,26 +212,18 @@
                                 <div class="repeater">
                                     <div data-repeater-list="List_Classes">
                                         <div data-repeater-item>
-
                                             <div class="row">
 
-                                                <div class="col">
-                                                    <label for="Name"
-                                                           class="mr-sm-2">{{ trans('site.Classes_trans.Name_class') }}
-                                                        :</label>
-                                                    <input class="form-control" type="text" name="name_ar" required/>
-                                                </div>
-
-
-                                                <div class="col">
-                                                    <label for="Name"
-                                                           class="mr-sm-2">{{ trans('site.Classes_trans.Name_class_en') }}
-                                                        :</label>
-                                                    <input class="form-control" type="text" name="name_en"
-                                                           required/>
-                                                </div>
-
-
+                                                @foreach (config('translatable.locales') as $locale)
+                                                    <div class="col">
+                                                        <label for="Name"
+                                                               class="mr-sm-2">@lang('site.' . $locale . '.name')
+                                                            :</label>
+                                                        <input id="Name" class="form-control" type="text"
+                                                               name="name:{{ $locale }}"
+                                                               required/>
+                                                    </div>
+                                                @endforeach
                                                 <div class="col">
                                                     <label for="Name_en"
                                                            class="mr-sm-2">{{ trans('site.Classes_trans.Name_Grade') }}
@@ -247,9 +241,9 @@
                                                 </div>
 
                                                 <div class="col">
-                                                    <label for="Name_en"
-                                                           class="mr-sm-2">{{ trans('site.Classes_trans.Processes') }}
-                                                        :</label>
+                                                    <label for="Name_en" class="mr-sm-2">
+{{--                                                        {{ trans('site.Classes_trans.Processes') }} :--}}
+                                                    </label>
                                                     <input class="btn btn-danger btn-block" data-repeater-delete
                                                            type="button"
                                                            value="{{ trans('site.Classes_trans.delete_row') }}"/>
@@ -262,9 +256,7 @@
                                             <input class="button" data-repeater-create type="button"
                                                    value="{{ trans('site.Classes_trans.add_row') }}"/>
                                         </div>
-
                                     </div>
-
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">{{ trans('site.Grades_trans.Close') }}</button>
@@ -272,17 +264,12 @@
                                                 class="btn btn-success">{{ trans('site.Grades_trans.submit') }}</button>
                                     </div>
 
-
                                 </div>
                             </div>
                         </form>
                     </div>
-
-
                 </div>
-
             </div>
-
         </div>
         <!--  delete all   -->
         <div class="modal fade" id="delete_all" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -308,7 +295,8 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary"
                                     data-dismiss="modal">{{ trans('site.Classes_trans.Close') }}</button>
-                            <button type="submit" class="btn btn-danger">{{ trans('site.Classes_trans.Delete') }}</button>
+                            <button type="submit"
+                                    class="btn btn-danger">{{ trans('site.Classes_trans.Delete') }}</button>
                         </div>
                     </form>
                 </div>
@@ -316,18 +304,18 @@
         </div>
     </div>
 
-
-
     <!-- row closed -->
 @endsection
 @section('js')
     @toastr_js
     @toastr_render
     <script type="text/javascript">
-        $(function() {
-            $("#btn_delete_all").click(function() {
+
+
+        $(function () {
+            $("#btn_delete_all").click(function () {
                 var selected = new Array();
-                $("#datatable input[type=checkbox]:checked").each(function() {
+                $("#datatable input[type=checkbox]:checked").each(function () {
                     selected.push(this.value);
                 });
                 if (selected.length > 0) {

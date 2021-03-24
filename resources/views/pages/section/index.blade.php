@@ -73,7 +73,7 @@
                                                                         <?php $i++; ?>
                                                                         <td>{{ $i }}</td>
                                                                         <td>{{ $list_Sections->Name_Section }}</td>
-                                                                        <td>{{ $list_Sections->My_classs->name_class }}
+                                                                        <td>{{ $list_Sections->My_classs->name }}
                                                                         </td>
                                                                         <td>
                                                                             @if ($list_Sections->Status === 1)
@@ -129,24 +129,27 @@
                                                                                     <div class="modal-body">
 
                                                                                         <div class="row">
-                                                                                            <div class="col">
-                                                                                                <input type="text"
-                                                                                                       name="Name_Section_Ar"
-                                                                                                       class="form-control"
-                                                                                                       value="{{ $list_Sections->getTranslation('Name_Section', 'ar') }}">
-                                                                                            </div>
+                                                                                            @foreach (config('translatable.locales') as $locale)
+                                                                                                <div class="col">
+                                                                                                    <input type="text"
+                                                                                                           name="{{ $locale }}[name]"
+                                                                                                           class="form-control"
+                                                                                                           value="{{ $list_Sections->translate($locale)->name }}">
+                                                                                                </div>
+                                                                                            @endforeach
+                                                                                            <input id="id"
+                                                                                                   type="hidden"
+                                                                                                   name="id"
+                                                                                                   class="form-control"
+                                                                                                   value="{{ $list_Sections->id }}">
 
-                                                                                            <div class="col">
-                                                                                                <input type="text"
-                                                                                                       name="Name_Section_En"
-                                                                                                       class="form-control"
-                                                                                                       value="{{ $list_Sections->getTranslation('Name_Section', 'en') }}">
-                                                                                                <input id="id"
-                                                                                                       type="hidden"
-                                                                                                       name="id"
-                                                                                                       class="form-control"
-                                                                                                       value="{{ $list_Sections->id }}">
-                                                                                            </div>
+                                                                                            {{--                                                                                            <div class="col">--}}
+                                                                                            {{--                                                                                                <input type="text"--}}
+                                                                                            {{--                                                                                                       name="Name_Section_En"--}}
+                                                                                            {{--                                                                                                       class="form-control"--}}
+                                                                                            {{--                                                                                                       value="{{ $list_Sections->getTranslation('Name_Section', 'en') }}">--}}
+                                                                                            {{--                                                                                                --}}
+                                                                                            {{--                                                                                            </div>--}}
 
                                                                                         </div>
                                                                                         <br>
@@ -160,10 +163,10 @@
                                                                                                     onchange="console.log($(this).val())"
                                                                                                     onclick="console.log($(this).val())">
                                                                                                 <!--placeholder-->
-{{--                                                                                                <option--}}
-{{--                                                                                                    value="{{ $Grade->id }}">--}}
-{{--                                                                                                    {{ $Grade->name }}--}}
-{{--                                                                                                </option>--}}
+                                                                                                {{--                                                                                                <option--}}
+                                                                                                {{--                                                                                                    value="{{ $Grade->id }}">--}}
+                                                                                                {{--                                                                                                    {{ $Grade->name }}--}}
+                                                                                                {{--                                                                                                </option>--}}
                                                                                                 @foreach ($list_Grades as $list_Grade)
                                                                                                     <option
                                                                                                         value="{{ $list_Grade->id }}">
@@ -304,15 +307,17 @@
                                     {{ csrf_field() }}
                                     <div class="modal-body">
                                         <div class="row">
+                                            @foreach (config('translatable.locales') as $locale)
                                             <div class="col">
-                                                <input type="text" name="Name_Section_Ar" class="form-control"
-                                                       placeholder="{{ trans('site.Sections_trans.Section_name_ar') }}">
+                                                <input type="text" name="{{ $locale }}[name]" class="form-control"
+                                                       placeholder="@lang('site.' . $locale . '.name')">
                                             </div>
+                                            @endforeach
 
-                                            <div class="col">
-                                                <input type="text" name="Name_Section_En" class="form-control"
-                                                       placeholder="{{ trans('site.Sections_trans.Section_name_en') }}">
-                                            </div>
+{{--                                            <div class="col">--}}
+{{--                                                <input type="text" name="Name_Section_En" class="form-control"--}}
+{{--                                                       placeholder="{{ trans('site.Sections_trans.Section_name_en') }}">--}}
+{{--                                            </div>--}}
 
                                         </div>
                                         <br>

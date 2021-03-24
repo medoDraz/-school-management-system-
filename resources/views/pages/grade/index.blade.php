@@ -86,25 +86,29 @@
                                                     {{method_field('patch')}}
                                                     @csrf
                                                     <div class="row">
-                                                        <div class="col">
-                                                            <label for="Name"
-                                                                   class="mr-sm-2">@lang('site.Grades_trans.stage_name_ar')
-                                                                :</label>
-                                                            <input id="Name" type="text" name="name_ar"
-                                                                   class="form-control"
-                                                                   value="{{$Grade->getTranslation('name', 'ar')}}"
-                                                                   required>
-                                                            <input id="id" type="hidden" name="id" class="form-control"
-                                                                   value="{{ $Grade->id }}">
-                                                        </div>
-                                                        <div class="col">
-                                                            <label for="Name_en"
-                                                                   class="mr-sm-2"> @lang('site.Grades_trans.stage_name_en')
-                                                                :</label>
-                                                            <input type="text" class="form-control"
-                                                                   value="{{$Grade->getTranslation('name', 'en')}}"
-                                                                   name="name_en" required>
-                                                        </div>
+                                                        <input id="id" type="hidden" name="id"
+                                                               class="form-control"
+                                                               value="{{ $Grade->id }}">
+                                                        @foreach (config('translatable.locales') as $locale)
+                                                            <div class="col">
+                                                                <label for="Name"
+                                                                       class="mr-sm-2">@lang('site.' . $locale . '.name')
+                                                                    :</label>
+                                                                <input id="Name" type="text" name="{{ $locale }}[name]"
+                                                                       class="form-control"
+                                                                       value="{{ $Grade->translate($locale)->name }}"
+                                                                       required>
+
+                                                            </div>
+                                                        @endforeach
+{{--                                                        <div class="col">--}}
+{{--                                                            <label for="Name_en"--}}
+{{--                                                                   class="mr-sm-2"> @lang('site.Grades_trans.stage_name_en')--}}
+{{--                                                                :</label>--}}
+{{--                                                            <input type="text" class="form-control"--}}
+{{--                                                                   value="{{$Grade->getTranslation('name', 'en')}}"--}}
+{{--                                                                   name="name_en" required>--}}
+{{--                                                        </div>--}}
                                                     </div>
                                                     <div class="form-group">
                                                         <label
@@ -191,18 +195,21 @@
                         <form action="{{ route('grade.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="col">
-                                    <label for="Name"
-                                           class="mr-sm-2">@lang('site.Grades_trans.stage_name_ar')
-                                        :</label>
-                                    <input id="Name" type="text" name="name_ar" class="form-control" required>
-                                </div>
-                                <div class="col">
-                                    <label for="Name_en"
-                                           class="mr-sm-2">@lang('site.Grades_trans.stage_name_en')
-                                        :</label>
-                                    <input type="text" class="form-control" name="name_en" required>
-                                </div>
+                                @foreach (config('translatable.locales') as $locale)
+                                    <div class="col">
+                                        <label for="Name"
+                                               class="mr-sm-2">@lang('site.' . $locale . '.name')
+                                            :</label>
+                                        <input id="Name" type="text" name="{{ $locale }}[name]"
+                                                class="form-control" required>
+                                    </div>
+                                @endforeach
+                                {{--                                <div class="col">--}}
+                                {{--                                    <label for="Name_en"--}}
+                                {{--                                           class="mr-sm-2">@lang('site.Grades_trans.stage_name_en')--}}
+                                {{--                                        :</label>--}}
+                                {{--                                    <input type="text" class="form-control" name="name_en" required>--}}
+                                {{--                                </div>--}}
                             </div>
                             <div class="form-group">
                                 <label

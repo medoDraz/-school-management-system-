@@ -14,7 +14,7 @@ class CreateParentAttachmentsTable extends Migration
     public function up()
     {
         Schema::create('parent_attachments', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('file_name')->nullable();
             $table->bigInteger('parent_id')->unsigned();
             $table->timestamps();

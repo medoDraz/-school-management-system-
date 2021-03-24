@@ -81,8 +81,7 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="Teachers-menu" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="calendar.html">Events Calendar </a> </li>
-                            <li> <a href="calendar-list.html">List Calendar</a> </li>
+                            <li> <a href="{{route('teachers.index')}}">{{trans('site.List_Teachers')}}</a> </li>
                         </ul>
                     </li>
 
@@ -96,15 +95,15 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="Parents-menu" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="#">{{trans('site.List_Parents')}}</a> </li>
-                            <li> <a href="{{url('add_parent')}}">{{trans('site.Add_Parent')}}</a> </li>
+                            <li> <a href="{{url('add_parent')}}">{{trans('site.List_Parents')}}</a> </li>
+{{--                            <li> <a href="{{url('add_parent')}}">{{trans('site.Add_Parent')}}</a> </li>--}}
                         </ul>
                     </li>
 
                     <!-- Accounts-->
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#Accounts-menu">
-                            <div class="pull-left"><i class="fas fa-calculator"></i></i><span
+                            <div class="pull-left"><i class="fas fa-calculator"></i><span
                                     class="right-nav-text">{{trans('site.Accounts')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>

@@ -30,6 +30,7 @@ class AddParent extends Component
         $Phone_Mother, $Job_Mother, $Job_Mother_en,
         $Nationality_Mother_id, $Blood_Type_Mother_id,
         $Address_Mother, $Religion_Mother_id;
+
     public $catchError,$updateMode = false,$photos;
 
     public function render()

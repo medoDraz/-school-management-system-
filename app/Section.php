@@ -2,14 +2,17 @@
 
 namespace App;
 
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
 class Section extends Model
 {
-    use HasTranslations;
-    public $translatable = ['Name_Section'];
-    protected $fillable=['Name_Section','Grade_id','Class_id'];
+    use Translatable;
+
+    public $translatedAttributes = ['name'];
+    protected $guarded=[];
+//    protected $fillable=['Grade_id','Class_id'];
 
     protected $table = 'sections';
     public $timestamps = true;

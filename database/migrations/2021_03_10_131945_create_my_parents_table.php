@@ -14,7 +14,7 @@ class CreateMyParentsTable extends Migration
     public function up()
     {
         Schema::create('my_parents', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('Email')->unique();
             $table->string('Password');
 

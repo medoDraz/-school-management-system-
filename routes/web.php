@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
+Route::get('/run-migrations', function () {
+    return Composer\InstalledVersions::getInstalledPackages();
+});
+
 Route::group(['middleware' => [ 'guest' ]], function(){
 		Route::get('/', function () {
 			return view('auth.login');
@@ -42,19 +46,13 @@ Route::group(
     Route::get('/classes/{id}', 'SectionController@getclasses');
 
     Route::view('add_parent','livewire.show-form');
+
+    Route::resource('teachers', 'TeacherController');
 });
-
-
-// Route::get('/', function () {
-//     return view('dashboard');
-// });
-
 
 
 Route::get('/empty', function () {
     return view('empty');
 });
-
-
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -7,6 +7,8 @@ use App\Grade;
 use App\Http\Requests\SectionRequest;
 use App\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class SectionController extends Controller
 {
@@ -27,19 +29,27 @@ class SectionController extends Controller
     }
 
 
-    public function store(SectionRequest $request)
+    public function store(Request $request)
     {
-//        return $request;
+        $rules=[
+        ];
+        foreach (config('translatable.locales') as $locale){
+            $rules +=[$locale.'.name'=>'required|unique:section_translations,name'];
+//            $rules +=[$locale.'.body'=>'required'];
+        }
+        $request->validate($rules);
         try {
 
-            $validated = $request->validated();
-            $Sections = new Section();
+//            $validated = $request->validated();
+            $request_data=$request->all();
+            $request_data['Status'] = 1;
+            Section::create($request_data);
 
-            $Sections->Name_Section = ['ar' => $request->Name_Section_Ar, 'en' => $request->Name_Section_En];
-            $Sections->Grade_id = $request->Grade_id;
-            $Sections->Class_id = $request->Class_id;
-            $Sections->Status = 1;
-            $Sections->save();
+//            $Sections->Name_Section = ['ar' => $request->Name_Section_Ar, 'en' => $request->Name_Section_En];
+//            $Sections->Grade_id = $request->Grade_id;
+//            $Sections->Class_id = $request->Class_id;
+//            $Sections->Status = 1;
+//            $Sections->save();
             toastr()->success(trans('site.messages.success'));
 
             return redirect()->route('sections.index');
@@ -63,22 +73,25 @@ class SectionController extends Controller
     }
 
 
-    public function update(SectionRequest $request )
+    public function update(Request $request )
     {
-//        return $request;
+        $Sections = Section::findOrFail($request->id);
+        $rules=[
+        ];
+        foreach (config('translatable.locales') as $locale){
+            $rules +=[$locale.'.name'=>['required', Rule::unique('section_translations','name')->ignore($Sections->id,'section_id')]];
+//            $rules +=[$locale.'.body'=>'required'];
+        }
+        $request->validate($rules);
         try {
-            $validated = $request->validated();
-            $Sections = Section::findOrFail($request->id);
-
-            $Sections->Name_Section = ['ar' => $request->Name_Section_Ar, 'en' => $request->Name_Section_En];
-            $Sections->Grade_id = $request->Grade_id;
-            $Sections->Class_id = $request->Class_id;
-
+//            $validated = $request->validated();
+            $request_data=$request->all();
             if(isset($request->Status)) {
-                $Sections->Status = 1;
+                $request_data['Status'] = 1;
             } else {
-                $Sections->Status = 2;
+                $request_data['Status'] = 2;
             }
+            $Sections->update($request_data);
 
             $Sections->save();
             toastr()->success(trans('site.messages.Update'));
@@ -102,7 +115,7 @@ class SectionController extends Controller
     }
 
     public function getclasses($id){
-        $list_classes = Classroom::where("grade_id", $id)->pluck("name_class", "id");
+        $list_classes = Classroom::where("grade_id", $id);
 
         return $list_classes;
     }

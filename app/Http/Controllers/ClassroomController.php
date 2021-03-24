@@ -6,6 +6,8 @@ use App\Classroom;
 use App\Grade;
 use App\Http\Requests\ClassroomRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ClassroomController extends Controller
 {
@@ -23,25 +25,23 @@ class ClassroomController extends Controller
 
     }
 
-    public function store(ClassroomRequest $request)
+    public function store(Request $request)
     {
-//      dd($request);
+//      return $request->List_Classes;
 
         $List_Classes = $request->List_Classes;
+        $rules=[
+        ];
+        foreach (config('translatable.locales') as $locale){
+            $rules +=['List_Classes.*.name:'.$locale=>'required|unique:classroom_translations,name'];
+//            $rules +=[$locale.'.body'=>'required'];
+        }
+        $request->validate($rules);
         try {
-            $validated = $request->validated();
+//            $validated = $request->validated();
             foreach ($List_Classes as $List_Class) {
-
-                $My_Classes = new Classroom();
-
-                $My_Classes->name_class = ['en' => $List_Class['name_en'], 'ar' => $List_Class['name_ar']];
-
-                $My_Classes->grade_id = $List_Class['grade_id'];
-
-                $My_Classes->save();
-
+                Classroom::create($List_Class);
             }
-
             toastr()->success(trans('site.messages.success'));
             return redirect()->route('classrooms.index');
         } catch (\Exception $e) {
@@ -61,21 +61,19 @@ class ClassroomController extends Controller
 
     public function update(Request $request)
     {
-//        return $request;
-//        $List_Classes = $request->List_Classes;
+        $My_Classes = Classroom::findOrFail($request->id);
+        $rules=[
+        ];
+
+        foreach (config('translatable.locales') as $locale){
+            $rules +=[$locale.'.name'=>['required', Rule::unique('classroom_translations','name')->ignore($My_Classes->id,'classroom_id')]];
+//            $rules +=[$locale.'.body'=>'required'];
+        }
+        $request->validate($rules);
         try {
-//            $validated = $request->validated();
-//          foreach ($List_Classes as $List_Class) {
 
-            $My_Classes = Classroom::findOrFail($request->id);
-
-            $My_Classes->name_class = ['en' => $request->name_en, 'ar' => $request->name_ar];
-
-            $My_Classes->grade_id = $request->grade_id;
-
-            $My_Classes->save();
-
-//          }
+            $request_data=$request->all();
+            $My_Classes->update($request_data);
 
             toastr()->success(trans('site.messages.Update'));
             return redirect()->route('classrooms.index');

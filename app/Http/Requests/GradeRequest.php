@@ -23,7 +23,14 @@ class GradeRequest extends FormRequest
      */
     public function rules()
     {
+        $rules=[
+        ];
+        foreach (config('translatable.locales') as $locale){
+            $rules +=[$locale.'.name'=>'required|unique:post_translations,name'];
+//            $rules +=[$locale.'.body'=>'required'];
+        }
         return [
+
             'name_ar' => 'required|unique:grades,name->ar,'.$this->id,
             'name_en' => 'required|unique:grades,name->en,'.$this->id,
         ];
