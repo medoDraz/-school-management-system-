@@ -72,7 +72,7 @@
                                                                     <tr>
                                                                         <?php $i++; ?>
                                                                         <td>{{ $i }}</td>
-                                                                        <td>{{ $list_Sections->Name_Section }}</td>
+                                                                        <td>{{ $list_Sections->name }}</td>
                                                                         <td>{{ $list_Sections->My_classs->name }}
                                                                         </td>
                                                                         <td>
@@ -379,7 +379,8 @@
                         success: function (data) {
                             $('select[name="Class_id"]').empty();
                             $.each(data, function (key, value) {
-                                $('select[name="Class_id"]').append('<option value="' + key + '">' + value + '</option>');
+                                console.log(value.name)
+                                $('select[name="Class_id"]').append('<option value="' + value.id + '">' + value.name + '</option>');
                             });
                         },
                     });
@@ -402,7 +403,7 @@
                     success: function (data) {
                         $('select[name="Class_id"]').empty();
                         $.each(data, function (key, value) {
-                            $('select[name="Class_id"]').append('<option value="' + key + '">' + value + '</option>');
+                            $('select[name="Class_id"]').append('<option value="' + key + '">' + value.name + '</option>');
                         });
                     },
                 });
