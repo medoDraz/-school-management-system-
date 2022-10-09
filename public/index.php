@@ -20,6 +20,17 @@ define('LARAVEL_START', microtime(true));
 | loading any of our classes later on. It feels great to relax.
 |
 */
+// header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS, post, get');
+// header("Access-Control-Max-Age", "3600");
+// header('Access-Control-Allow-Headers: Origin,X-Requested-With, Content-Type,Accept, Authorization,x-token, X-Auth-Token');
+// header("Access-Control-Allow-Credentials", "true");
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS, post, get');
+header("Access-Control-Max-Age", "3600");
+header('Access-Control-Allow-Headers: Origin,X-Requested-With, Content-Type,Accept, Authorization,x-token, X-Auth-Token');
+header("Access-Control-Allow-Credentials", "true");
 
 require __DIR__.'/../vendor/autoload.php';
 

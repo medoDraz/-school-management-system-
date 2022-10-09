@@ -23,6 +23,20 @@ Route::post('/logsystem', 'API\LogsystemController@logsystem');
 //Route::post ('password/email', 'API\ForgotPasswordController@sendResetLinkEmail');
 //Route::post('forgot/password', 'API\ForgotPasswordController')->name('forgot.password');
 
+Route::post('user/login', 'API\UserController@login');
+
+Route::middleware('ApiToken')->group(function () {
+    Route::post('user/detail', 'API\UserController@details');
+    //==============================dashboard============================
+    Route::post('dashboard', 'API\HomeController@dashboard');
+    //==============================Grades============================
+    Route::post('grades/list', 'API\GradeController@index');
+    Route::post('grade/add', 'API\GradeController@store');
+    Route::post('grade/update', 'API\GradeController@update');
+    Route::post('grade/delete', 'API\GradeController@destroy');
+    Route::post('grade/change_status', 'API\GradeController@change_status');
+});
+
 Route::middleware('AccountedApiToken')->group(function () {
 
     Route::post('user/detail', 'API\UserController@details');
